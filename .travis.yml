@@ -4,7 +4,7 @@ services:
 before_install:
   - docker build -t afsan007/react-test -f ./client/Dockerfile.dev ./client
 script:
-  - docker run afsan007/react-test npm test -- --coverage
+  - docker run afsan007/react-test npm test
 after_success:
   - docker build -t afsan007/multi-client ./client
   - docker build -t afsan007/multi-nginx  ./nginx

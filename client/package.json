@@ -63,8 +63,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --coverage",
-    "tess":"jest --coverage"
+    "test": "node scripts/test.js --coverage"
   },
   "eslintConfig": {
     "extends": "react-app"
