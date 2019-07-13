@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 const redis = require('redis');
 
-mongoose.connect(keys.dbAdd, {
+mongoose.connect(`${keys.dbAdd}:${keys.dbPort}/serverDb`, {
     // auth: {
     //     user: keys.mongoUsername,
     //     password: keys.mongoPassword
@@ -46,14 +46,18 @@ app.get('/values/all', async (req, res) => {
 app.post('/values', async (req, res) => {
     const index = req.body.index;
 
-    if ( +index > 40 ) {
+    if (+index > 40) {
         return res.status(422).send('Index too high')
     }
     redisClient.hset('values', index, 'Nothing yet!');
     await redisPublisher.publish('insert', index);
-    const value = new DB({ value: index })
+    const value = new DB({
+        value: index
+    })
     value.save()
-    res.send({ working: true })
+    res.send({
+        working: true
+    })
 
 })
 
